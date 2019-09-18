@@ -1,0 +1,64 @@
+<div class="workout">
+  <h3 class="section-header">Workout Manager</h3>
+  <div class="position-fixed fixed-bottom text-right mb-3 mr-3">
+    <button class="btn btn-lg btn-success rounded-circle" (click)="openTemplate('Add', null)">
+      <i class="fa fa-plus"></i>
+    </button>
+  </div>
+
+  <form #workoutForm="ngForm" novalidate>
+    <!-- filter workouts -->
+    <div class="form-group" id="search">
+      <label for="search">Search workouts</label>
+      <input type="text" id="searchWorkout" class="form-control form-control-lg"
+      placeholder="Search for existing workouts" (keyup)="filterQuery$.next($event.target.value)">
+    </div>
+  </form>
+  <!-- list of workouts -->
+  <ul class="list-unstyled form-row">
+
+    <li class="col-12 display-4 text-center text-muted" *ngIf="!filteredWorkouts
+      || filteredWorkouts.length &lt; 1">No workout exists!</li>
+
+    <li class="col-12 col-lg-6" *ngFor="let workout of filteredWorkouts">
+      <div class="card bg-light text-center" id="workout-{{filteredWorkouts.indexOf(workout)}}">
+
+        <!-- workout icon -->
+        <div class="card-body">
+          <i class="fa fa-8x fa-exclamation-triangle text-silhouette"></i>
+        </div>
+
+        <!-- workout name -->
+        <div class="card-footer text-left">
+          <h2 class="card-title">{{workout.category.category}}</h2>
+          <h4 class="card-subtitle">{{workout.title}}</h4>
+        </div>
+
+        <div class="buttons float-right">
+          <!-- edit workout -->
+          <button class="btn btn-primary" title="Edit Workout" (click)="openTemplate('Update', workout)"
+          *ngIf="!workout.startdate && !workout.enddate">
+            <i class="fa fa-pencil"></i>
+          </button>
+          <!-- delete workout -->
+          <button class="btn btn-danger" title="Delete Workout" (click)="delete(workout)">
+            <i class="fa fa-times"></i>
+          </button>
+          <!-- start workout -->
+          <button class="btn btn-success" title="Start Workout" (click)="openTemplate('Start', workout)"
+          *ngIf="!workout.startdate && !workout.enddate">
+            <i class="fa fa-play"></i>
+          </button>
+          <!-- end workout -->
+          <button class="btn btn-secondary" title="End Workout" (click)="openTemplate('End', workout)"
+          *ngIf="workout.startdate && !workout.enddate">
+            <i class="fa fa-stop"></i>
+          </button>
+        </div>
+
+      </div>
+
+    </li>
+  </ul>
+
+</div>

@@ -1,0 +1,13 @@
+<div class="chart-container">
+  <div class="chart-area d-flex justify-content-center align-items-center" id="chart-area">
+    <i class="fa fa-pie-chart fa-15x text-silhouette" [hidden]="daterange.length > 0"></i>
+  </div>
+  <div class="quick-controls d-flex align-items-center">
+      <button type="button" class= "flex-fill btn btn-primary px-5"
+      (click)="refreshForCurrentWeek()">Current Week</button>
+      <button type="button" class= "flex-fill btn btn-dark px-4"
+      (click)="refreshForCurrentMonth()">Current Month</button>
+      <button type="button" class= "flex-fill btn btn-info px-3"
+      (click)="refreshForCurrentYear()">Current Year</button>
+    </div>
+</div>
